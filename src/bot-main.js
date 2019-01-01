@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const ffapi = require('./ffxiv-func');
-const {botapi_key} = require('./constantes');
+const PropertiesReader = require('properties-reader');
+const properties = PropertiesReader(process.argv[2]);
 
 client.on('ready', () => {
   console.log('Logged in as ${client.user.tag}!');
@@ -18,5 +19,4 @@ client.on('message', msg => {
   }
 });
 
-client.login(botapi_key);
-
+client.login(properties.get('discordbot.secret.key'));
