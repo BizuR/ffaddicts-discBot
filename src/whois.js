@@ -26,15 +26,16 @@ const Discord = require('discord.js');
                     if (charInfo.Character.Title !== null){
                         let responseTitle = await fetch ("https://xivapi.com/Title/" + charInfo.Character.Title + "?language=fr" +"&key=" + xivapi_key);
                         let titleInfo = await responseTitle.json();
-                        var titleLib = charInfo.Character.Gender === 1 ? titleInfo.Name : titleInfo.NameFemale;
+                        var titleLabel = charInfo.Character.Gender === 1 ? titleInfo.Name : titleInfo.NameFemale;
                     }
                     let responseJobs = await fetch ("https://xivapi.com/ClassJob/" + charInfo.Character.ActiveClassJob.JobID + "?language=fr" +"&key=" + xivapi_key);
                     let jobInfo = await responseJobs.json();
-                    const jobLib = jobInfo.Abbreviation;           
+                    const jobLabel = jobInfo.Abbreviation;           
                     const embedResponse = new Discord.RichEmbed();
-                    embedResponse.setAuthor(charInfo.Character.Name + ", " + jobLib + " " + charInfo.Character.ActiveClassJob.Level,charInfo.Character.Avatar);
-                    embedResponse.setDescription(titleLib);
+                    embedResponse.setAuthor(charInfo.Character.Name + ", " + jobLabel + " " + charInfo.Character.ActiveClassJob.Level,"https://xivapi.com" + jobInfo.Icon);
+                    embedResponse.setDescription(titleLabel);
                     embedResponse.setImage(charInfo.Character.Portrait);
+                    embedResponse.setThumbnail(charInfo.Character.Avatar);
                     embedResponse.setFooter("sources from xivapi.com");
                     msg.channel.send(embedResponse);
                  }

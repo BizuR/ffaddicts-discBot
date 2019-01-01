@@ -8,7 +8,7 @@ module.exports = {
        whois(msg, xivapi_key);
     },
 
-    fftest:function(msg){
+    fftest: function(msg){
         msg.reply('Ca fonctionne !');
     }
   };
