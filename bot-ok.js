@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const request = require('request');
 const client = new Discord.Client();
-
+const {botapi_key} = require('./constantes');
 
 
 client.on('ready', () => {
@@ -52,4 +52,4 @@ client.on('message', msg => {
     }
 });
 
-client.login('xxx');
+client.login(botapi_key);
