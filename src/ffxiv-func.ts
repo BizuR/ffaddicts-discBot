@@ -25,11 +25,30 @@ export class ffxiv_func {
     }
    }
 
-    static ffstats(msg : Discord.Message) {
+    static async ffstats(msg : Discord.Message) {
        stats.execute(msg, xivapi_key);
     }
 
-    static ffwhois(msg : Discord.Message) {
-      whois.execute(msg, xivapi_key);
+    static async ffwhois(msg : Discord.Message) {
+        let cmdargs = msg.content.split(" ");
+        let playerName = "";
+        let serverName = "";
+        if (cmdargs.length > 2){
+            cmdargs.shift();
+            serverName = cmdargs[0];
+            cmdargs.shift();
+            playerName = cmdargs.join(' ');
+        }
+        if (playerName === '' || serverName === ''){
+            msg.reply('Utilisation !ffwhois <server> <character>');
+        } else {
+            try{
+              let char = await XIVapi.getCharacter(serverName,playerName);
+              msg.channel.send(char.formatInfos("discord"));
+            } catch (err) {
+                msg.reply(err);
+            }
+      }
+      //whois.execute(msg, xivapi_key);
     }
   };
