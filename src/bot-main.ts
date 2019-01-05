@@ -1,7 +1,9 @@
 import * as Discord from 'discord.js';
 import {ffxiv_func} from './ffxiv-func';
 const client = new Discord.Client();
-const propsDiscord = require(process.argv[2]);
+const props = require(process.cwd() + "/" + process.argv[2]);
+console.log(process.cwd());
+console.log(process.argv[2]);
 
 
 client.on('ready', () => {
@@ -14,4 +16,4 @@ client.on('message', msg => {
     ffxiv_func[fullcmd.substring(1,fullcmd.length)](msg);
   }
 });
-client.login(propsDiscord.discordBot.secretKey);
+client.login(props.discordBot.secretKey);

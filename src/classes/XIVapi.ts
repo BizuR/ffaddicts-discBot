@@ -4,7 +4,7 @@ import { JobClass } from './jobClassBean';
 import { IngredientForRecipe, Recipe } from './recipeBean';
 import * as LRU from 'lru-cache';
 
-const props = require('../' + process.argv[2]);
+const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
 const xivapi_baseurl = props.xivApi.baseUrl;
 const cacheOptions: any = {};
@@ -28,16 +28,13 @@ export class XIVapi {
                 let responseSearch = await fetch(xivapi_baseurl + "/search?language=fr&indexes=recipe&key=" + xivapi_key + "&string=" + encodeURIComponent(name));
                 let searchList = await responseSearch.json();
                 if (searchList.Pagination.Results === 0) {
-                    //renvoyer la liste des recettes.
-                    //retourner une erreur
                     throw "Aucun nom ne correspond de près ou de loin.";
                 } else if (searchList.Pagination.Results > 1) {
+                    //retour d'une réponse d'erreur avec les possibilités
                     let response = "Demande trop vague, quelques pistes :";
                     for (let i = 0; (i < searchList.Pagination.Results) && (i < 5); i++) {
                         response += "\n- " + searchList.Results[i].Name;
                     }
-                    //retourner une réponse avec les possibilités
-                    //msg.reply(response);
                     throw response;
                 } else {
                     //chercher plus d'info sur la recette

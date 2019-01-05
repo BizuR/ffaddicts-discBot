@@ -2,8 +2,8 @@ import * as Discord from 'discord.js';
 import * as whois from './whois';
 import * as stats from './stats';
 import { XIVapi } from './classes/XIVapi';
-const propsXivapi = require(process.argv[2]);
-const xivapi_key = propsXivapi.xivApi.secretKey;
+const props = require(process.cwd() + "/" + process.argv[2]);
+const xivapi_key = props.xivApi.secretKey;
 
 export class ffxiv_func {
     static async ffrecipe(msg : Discord.Message) {

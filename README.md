@@ -11,7 +11,7 @@ To be able to run this bot, you will need :
 
 To run the bot : 
 - build your ts classes with "tsc" command.
-- run the bot with "node target/bot-main.js <init-file>" (take care, init-file must be relative to target dir and not launching dir).
+- run the bot with "node target/bot-main.js <init-file>"
 
 Example of json property file : 
 
