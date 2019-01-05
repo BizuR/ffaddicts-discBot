@@ -16,8 +16,12 @@ export class ffxiv_func {
       if (recipeName === ''){
           msg.reply('Utilisation !ffrecipe <recipeName>');
       } else {
-         let rec = await XIVapi.getRecipe(recipeName);
-         msg.channel.send(rec.formatRecipe("discord"));
+          try{
+            let rec = await XIVapi.getRecipe(recipeName);
+            msg.channel.send(rec.formatRecipe("discord"));
+          } catch (err) {
+              msg.reply(err);
+          }
     }
    }
 
