@@ -1,7 +1,7 @@
-const fetch = require('node-fetch');
-const Discord = require('discord.js');
+ import fetch from 'node-fetch';
+ import * as Discord from 'discord.js';
 
- module.exports = async function whois (msg, xivapi_key) {
+ export async function execute(msg : Discord.Message, xivapi_key : string) {
 
         let cmdargs = msg.content.split(" ");
         let recipeName = "";

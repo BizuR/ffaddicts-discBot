@@ -61,5 +61,5 @@ typings/
 .next
 
 # constantes file
-constantes.js
-properties/bot-properties.ini
+properties/bot-properties.json
+target/*
