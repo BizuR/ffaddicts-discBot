@@ -1,12 +1,11 @@
 import * as Discord from 'discord.js';
-import * as whois from './whois';
 import * as stats from './stats';
 import { XIVapi } from './classes/XIVapi';
 const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
 
 export class ffxiv_func {
-    static async ffrecipe(msg : Discord.Message) {
+    static async ffrecipe(msg : Discord.Message) : Promise<void> {
       let cmdargs = msg.content.split(" ");
       let recipeName = "";
       if (cmdargs.length > 1){
@@ -25,11 +24,11 @@ export class ffxiv_func {
     }
    }
 
-    static async ffstats(msg : Discord.Message) {
+    static async ffstats(msg : Discord.Message) : Promise<void> {
        stats.execute(msg, xivapi_key);
     }
 
-    static async ffwhois(msg : Discord.Message) {
+    static async ffwhois(msg : Discord.Message) : Promise<void> {
         let cmdargs = msg.content.split(" ");
         let playerName = "";
         let serverName = "";
@@ -49,6 +48,5 @@ export class ffxiv_func {
                 msg.reply(err);
             }
       }
-      //whois.execute(msg, xivapi_key);
     }
   };

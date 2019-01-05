@@ -4,13 +4,15 @@ import {Character} from './character';
 import { Item } from './item';
 
 export class DiscordFormatter {
-    formatJobs(character: Character) {
+    formatJobs(character: Character) : RichEmbed {
         const embedResponse = new RichEmbed();
+        return embedResponse;
     }
-    formatStats(character: Character) {
+    formatStats(character: Character) : RichEmbed {
         const embedResponse = new RichEmbed();
+        return embedResponse;
     }
-    formatCharInfos(character: Character) {
+    formatCharInfos(character: Character) : RichEmbed {
         const embedResponse = new RichEmbed();
         embedResponse.setAuthor(character.name + ", " + character.activeJob.abbreviation + " " + character.getLevel(character.activeJob),character.activeJob.iconUrl.toString());
         embedResponse.setDescription(character.title);
@@ -20,7 +22,7 @@ export class DiscordFormatter {
         return embedResponse;
     }
    
-    formatRecipe(recipe : Recipe){
+    formatRecipe(recipe : Recipe) : RichEmbed {
         const embedResponse = new RichEmbed();
         embedResponse.setAuthor(recipe.name,recipe.job.iconUrl.toString());
         embedResponse.setDescription(recipe.craftType + ", lvl : " + recipe.levelRequired + ", durabilité : "+ recipe.durability);

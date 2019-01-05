@@ -26,27 +26,27 @@ export class Character{
         this.activeJob = null;
     }
 
-    public addJob(newJob : JobClass, level : number){
+    public addJob(newJob : JobClass, level : number) : void {
         this.jobs.set(newJob, level);
     }
 
-    public addAttribute(newAttr : string, value : number){
+    public addAttribute(newAttr : string, value : number) : void {
         this.attributes.set(newAttr, value);
     }
 
-    public getLevel(job: JobClass): number {
+    public getLevel(job: JobClass) : number {
         return this.jobs.get(job);
     }
 
-    public formatInfos(formatter_name : string){
+    public formatInfos(formatter_name : string) : any {
         return FormatterFactory.getFormatter(formatter_name).formatCharInfos(this);
     }
 
-    public formatStats(formatter_name : string){
+    public formatStats(formatter_name : string) : any {
         return FormatterFactory.getFormatter(formatter_name).formatStats(this);
     }
 
-    public formatJobs(formatter_name : string){
+    public formatJobs(formatter_name : string) : any {
         return FormatterFactory.getFormatter(formatter_name).formatJobs(this);
     }
 
