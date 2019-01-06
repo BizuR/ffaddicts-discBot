@@ -1,4 +1,4 @@
-import {FormatterFactory} from './formatterFactory';
+import {FormatterFactory} from '../formatters/formatterFactory';
 import { Url } from 'url';
 import {Item} from './item';
 import { JobClass } from './jobClass';

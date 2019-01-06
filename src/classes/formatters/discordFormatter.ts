@@ -1,7 +1,7 @@
 import { RichEmbed } from 'discord.js';
-import {Recipe} from './recipe';
-import {Character} from './character';
-import { Item } from './item';
+import {Recipe} from '../beans/recipe';
+import {Character} from '../beans/character';
+import { Item } from '../beans/item';
 
 export class DiscordFormatter {
     formatJobs(character: Character) : RichEmbed {

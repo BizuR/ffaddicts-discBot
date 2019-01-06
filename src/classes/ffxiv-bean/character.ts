@@ -1,7 +1,7 @@
-import {FormatterFactory} from './formatterFactory';
+import {FormatterFactory} from '../formatters/formatterFactory';
 import { Url } from 'url';
-import {Item} from './item';
-import { JobClass } from './jobClass';
+import {Item} from '../beans/item';
+import { JobClass } from '../beans/jobClass';
 import { runInThisContext } from 'vm';
 
 export class Character{

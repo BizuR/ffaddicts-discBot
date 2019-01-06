@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js';
 import * as stats from './stats';
-import { XIVapi } from './classes/XIVapi';
+import { XIVapi } from './classes/apis/XIVdata';
 const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
 
