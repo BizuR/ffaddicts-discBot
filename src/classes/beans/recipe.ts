@@ -7,6 +7,7 @@ export class Recipe{
 
     id : string;
     name : string;
+    en_name : string;
     difficulty : number;
     durability : number;
     quality : number;
@@ -19,6 +20,7 @@ export class Recipe{
     constructor(){
         this.id = "";
         this.name = "";
+        this.en_name = "";
         this.difficulty = 0;
         this.durability = 0;
         this.quality = 0;

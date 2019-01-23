@@ -3,6 +3,9 @@ import * as stats from './stats';
 import { XIVapi } from './classes/apis/XIVdata';
 const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
+import { HACache } from './classes/misc/cache';
+import { Character } from './classes/beans/character';
+const cache = new HACache(process.cwd() + "/exec/cache/",'bot-ffdatas.db');
 
 export class ffxiv_func {
     static async ffrecipe(msg : Discord.Message) : Promise<void> {
@@ -49,4 +52,39 @@ export class ffxiv_func {
             }
       }
     }
-  };
+
+    static async ffiam(msg : Discord.Message) : Promise<void> {
+        let cmdargs = msg.content.split(" ");
+        let playerName = "";
+        let serverName = "";
+        if (cmdargs.length > 2){
+            cmdargs.shift();
+            serverName = cmdargs[0];
+            cmdargs.shift();
+            playerName = cmdargs.join(' ');
+        }
+        if (playerName === '' || serverName === ''){
+            msg.reply('Utilisation !ffwhois <server> <character>');
+        } else {
+            try{
+              let char = await XIVapi.getCharacter(serverName,playerName);
+              cache.put(msg.author.id,char);
+              msg.channel.send(playerName + " on " + serverName + " trouvé(e) et affecté(e) à " + msg.author.toString());
+              msg.channel.send(char.formatInfos("discord"));
+            } catch (err) {
+                msg.reply(err);
+            }
+      }
+    }
+
+    static async ffwhoami(msg : Discord.Message) : Promise<void> {
+        try{
+          let char : Character = cache.get(msg.author.id);
+          msg.channel.send(msg.author.toString() + " est associé(e) à " + char.name);
+          msg.channel.send(char.formatInfos("discord"));
+            } catch (err) {
+                msg.reply(err);
+            }
+      }
+
+    };

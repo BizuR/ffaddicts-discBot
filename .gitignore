@@ -62,4 +62,7 @@ typings/
 
 # constantes file
 properties/bot-properties.json
+
+# excluded folders
 target/*
+exec/*

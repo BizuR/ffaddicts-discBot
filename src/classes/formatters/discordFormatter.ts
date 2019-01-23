@@ -14,6 +14,7 @@ export class DiscordFormatter {
     }
     formatCharInfos(character: Character) : RichEmbed {
         const embedResponse = new RichEmbed();
+        embedResponse.setColor("#3c7ee8");
         embedResponse.setAuthor(character.name + ", " + character.activeJob.abbreviation + " " + character.getLevel(character.activeJob),character.activeJob.iconUrl.toString());
         embedResponse.setDescription(character.title);
         embedResponse.setImage(character.portrait.toString());
@@ -24,13 +25,14 @@ export class DiscordFormatter {
    
     formatRecipe(recipe : Recipe) : RichEmbed {
         const embedResponse = new RichEmbed();
-        embedResponse.setAuthor(recipe.name,recipe.job.iconUrl.toString());
+        embedResponse.setColor("#d8a961");
+        embedResponse.setAuthor(recipe.name + " / " + recipe.en_name,recipe.job.iconUrl.toString());
         embedResponse.setDescription(recipe.craftType + ", lvl : " + recipe.levelRequired + ", durabilité : "+ recipe.durability);
         embedResponse.setThumbnail(recipe.iconUrl.toString());
         embedResponse.addField("Difficulté", recipe.difficulty, true);
         embedResponse.addField("Qualité", recipe.quality, true);
         recipe.ingredients.forEach((value: number, key: Item) => {
-            embedResponse.addField(value + "x " + key.name, "(" + key.name + ") " + key.description);
+            embedResponse.addField(value + "x " + key.name, "(" + key.type + ") " + key.description);
         });
         embedResponse.setFooter("sources from xivapi.com");
         return embedResponse;

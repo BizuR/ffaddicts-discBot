@@ -3,21 +3,18 @@ import { Recipe } from '../beans/recipe';
 import { Character } from '../beans/character';
 import { XIVcontent } from './XIVcontent';
 import { XIVrequester } from './XIVrequestBuilder';
-import * as LRU from 'lru-cache';
+import { IMCache } from '../misc/cache';
 
 const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_baseurl = props.xivApi.baseUrl;
-const cacheOptionsData: any = {};
-cacheOptionsData.max = 100;
-cacheOptionsData.maxAge = 60 * 60 * 1000;
-const cache: any = new LRU(cacheOptionsData);
+const cache: any = new IMCache(100,60 * 60 * 1000);
 
 export class XIVapi {
 
     public static async getRecipe(name: string) : Promise<Recipe> {
         try {
             //if in cache
-            if (cache.has('recipe-'+name)) {
+            if (cache.exists('recipe-'+name)) {
                 let recipe_id = cache.get('recipe-'+name);
                 return cache.get('recipe-'+recipe_id);
             }
@@ -39,6 +36,7 @@ export class XIVapi {
                     const rec : Recipe = new Recipe();
                     rec.id = recipeInfo.ID;
                     rec.name = recipeInfo.Name;
+                    rec.en_name = recipeInfo.Name_en;
                     rec.difficulty = recipeInfo.RecipeLevelTable.Difficulty;
                     rec.quality = recipeInfo.RecipeLevelTable.Quality;
                     rec.durability = recipeInfo.RecipeLevelTable.Durability;
@@ -50,12 +48,12 @@ export class XIVapi {
                         let curQte : number = recipeInfo["AmountIngredient" + i];
                         if (curQte > 0) {
                             let curItem = recipeInfo["ItemIngredient" + i];
-                            let item : Item = new Item(curItem.Name, curItem.ItemUICategory.Name, curItem.Description);
+                            let item : Item = new Item(curItem.Name, curItem.ItemUICategory.Name, curItem.Description, curItem.Name_en);
                             rec.addIngredient(item, curQte);
                         }
                     }
-                    cache.set('recipe-'+name, rec.id);
-                    cache.set('recipe-'+rec.id, rec);
+                    cache.put('recipe-'+name, rec.id);
+                    cache.put('recipe-'+rec.id, rec);
                     return rec;
                 }
             }
@@ -68,7 +66,7 @@ export class XIVapi {
     public static async getCharacter(server : string, name: string) : Promise<Character> {
         try {
             //if in cache
-            if (cache.has('char-'+server+'-'+name)) {
+            if (cache.exists('char-'+server+'-'+name)) {
                 let char_id = cache.get('char-'+server+'-'+name);
                 return cache.get('char-'+char_id);
             }
@@ -103,8 +101,8 @@ export class XIVapi {
                         };
                         charResponse.activeJob = await XIVcontent.getJobClass(charInfo.Character.ActiveClassJob.JobID);
 
-                        cache.set('char-'+server+'-'+name, charResponse.id);
-                        cache.set('char-'+charResponse.id, charResponse);
+                        cache.put('char-'+server+'-'+name, charResponse.id);
+                        cache.put('char-'+charResponse.id, charResponse);
                     return charResponse;
                     }
                 }
