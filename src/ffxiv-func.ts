@@ -5,7 +5,7 @@ const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
 import { HACache } from './classes/misc/cache';
 import { Character } from './classes/beans/character';
-const cache = new HACache(process.cwd() + "/exec/cache/",'bot-ffdatas.db');
+const cache = new HACache(process.cwd() + "/exec/",'bot-ffdatas.db');
 
 export class ffxiv_func {
     static async ffrecipe(msg : Discord.Message) : Promise<void> {
@@ -24,7 +24,7 @@ export class ffxiv_func {
           } catch (err) {
               msg.reply(err);
           }
-    }
+      }
    }
 
     static async ffstats(msg : Discord.Message) : Promise<void> {
@@ -50,7 +50,7 @@ export class ffxiv_func {
             } catch (err) {
                 msg.reply(err);
             }
-      }
+        }
     }
 
     static async ffiam(msg : Discord.Message) : Promise<void> {
@@ -68,23 +68,24 @@ export class ffxiv_func {
         } else {
             try{
               let char = await XIVapi.getCharacter(serverName,playerName);
-              cache.put(msg.author.id,char);
+              cache.put(msg.author.id,Character.cache(char));
               msg.channel.send(playerName + " on " + serverName + " trouvé(e) et affecté(e) à " + msg.author.toString());
               msg.channel.send(char.formatInfos("discord"));
             } catch (err) {
                 msg.reply(err);
             }
-      }
+        }
     }
 
     static async ffwhoami(msg : Discord.Message) : Promise<void> {
         try{
-          let char : Character = cache.get(msg.author.id);
+            console.log(cache.get(msg.author.id));
+            console.log("*********************** uncache à venir ***");
+          let char : Character = Character.uncache(cache.get(msg.author.id));
           msg.channel.send(msg.author.toString() + " est associé(e) à " + char.name);
           msg.channel.send(char.formatInfos("discord"));
             } catch (err) {
                 msg.reply(err);
             }
-      }
-
+        }
     };

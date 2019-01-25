@@ -1,6 +1,7 @@
 import {FormatterFactory} from '../formatters/formatterFactory';
 import { Url } from 'url';
 import { JobClass } from './jobClass';
+import { Attachment } from 'discord.js';
 
 export class Character{
 
@@ -48,5 +49,39 @@ export class Character{
         return FormatterFactory.getFormatter(formatter_name).formatJobs(this);
     }
 
-    
+    public static cache(char : Character) : any {
+        let attributesTab = [];
+        char.attributes.forEach((value, key) => {
+            attributesTab.push({attr : key, valeur : value});
+        });
+        let jobsTab = [];
+        char.jobs.forEach((value, key) => {
+            jobsTab.push({job : JobClass.cache(key), level : value});
+        });
+        return {
+            id : char.id,
+            name : char.name,
+            portrait : char.portrait.toString(),
+            avatar : char.avatar.toString(),
+            attributes : attributesTab,
+            activeJob : JobClass.cache(char.activeJob),
+            jobs : jobsTab
+        };
+    }
+
+    public static uncache(data : any) : Character {
+        let curChar = new Character();
+        curChar.id = data.id;
+        curChar.name = data.name;
+        curChar.portrait = data.portrait;
+        curChar.avatar = data.avatar;
+        curChar.activeJob = JobClass.uncache(data.activeJob);
+        data.attributes.forEach(element => {
+            curChar.addAttribute(element.attr, element.valeur);
+        });
+        data.jobs.forEach(element => {
+            curChar.addJob(JobClass.uncache(element.job), element.level);
+        });
+        return curChar;
+    }
 }

@@ -8,7 +8,6 @@ export class XIVrequester {
 
     public static async getContent(contentType : string, id? : number, options? : Map<string, string>) {
         //url building
-        console.debug('enter getContent ' + contentType + ' - ' + id);
         let current_url = baseurl + '/' + contentType;
         if (id != null){ current_url += '/' + id;}
         current_url += '?';
@@ -19,14 +18,12 @@ export class XIVrequester {
         }
         current_url += endRequest;
         // fetching url
-        console.debug(current_url);
         let response = await fetch(current_url);
         return await response.json();
     }
 
     public static async searchContent(contentType : string, name : string, options? : Map<string, string>) {
         //url building
-        console.debug('enter searchContent ' + contentType + ' - ' + name);
         let current_url = baseurl + '/search?indexes=' + encodeURIComponent(contentType)+"&string="+encodeURIComponent(name)+'&';
         if (options != null){
             options.forEach((value: string, key: string) => {
@@ -35,14 +32,12 @@ export class XIVrequester {
         }
         current_url += endRequest;
         // fetching url
-        console.debug(current_url);
         let response = await fetch(current_url);
         return await response.json();
     }
 
     public static async searchCharacter(server : string, name : string, options? : Map<string, string>) {
         //url building
-        console.debug('enter searchCharacter ' + server + ' - ' + name);
         let current_url = baseurl + '/character/search?server=' + encodeURIComponent(server)+"&name="+encodeURIComponent(name)+'&';
         if (options != null){
             options.forEach((value: string, key: string) => {
@@ -51,7 +46,6 @@ export class XIVrequester {
         }
         current_url += endRequest;
         // fetching url
-        console.debug(current_url);
         let response = await fetch(current_url);
         return await response.json();
     }

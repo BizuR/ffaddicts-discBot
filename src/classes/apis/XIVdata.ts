@@ -103,7 +103,7 @@ export class XIVapi {
 
                         cache.put('char-'+server+'-'+name, charResponse.id);
                         cache.put('char-'+charResponse.id, charResponse);
-                    return charResponse;
+                        return charResponse;
                     }
                 }
             }
