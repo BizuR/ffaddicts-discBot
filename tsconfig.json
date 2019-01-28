@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "paths":{
+            "discord.js" : ["node_modules/discord.js/typings/index"]
+        },
+        "outDir": "./target",
+        "allowJs": true,
+        "target": "es6",
+        "moduleResolution": "Node",
+        "module": "commonjs",
+        "resolveJsonModule": true
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}

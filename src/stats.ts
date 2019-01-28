@@ -1,7 +1,7 @@
-const fetch = require('node-fetch');
-const Discord = require('discord.js');
+import fetch from 'node-fetch';
+import * as Discord from 'discord.js';
 
-module.exports = async function stats (msg, xivapi_key) {
+export async function execute(msg : Discord.Message, xivapi_key : string) {
 
     let cmdargs = msg.content.split(" ");
     let playerName = "";
@@ -39,7 +39,7 @@ module.exports = async function stats (msg, xivapi_key) {
                 let listStats = Object.keys(charInfo.Character.GearSet.Attributes);
                 let nbStats = listStats.length;
                 for(let i=0; i < nbStats; i++){
-                    embedResponse.addField(statsName.Results[listStats[i]-1].Name, charInfo.Character.GearSet.Attributes[listStats[i]],true);
+                    embedResponse.addField(statsName.Results[-1+listStats[i]].Name, charInfo.Character.GearSet.Attributes[listStats[i]],true);
                 };
                 embedResponse.setThumbnail(charInfo.Character.Avatar);
                 embedResponse.setFooter("sources from xivapi.com");
