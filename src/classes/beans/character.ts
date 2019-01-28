@@ -10,7 +10,7 @@ export class Character{
     title : string;
     portrait : Url;
     avatar : Url;
-    jobs : Map<JobClass, number>;
+    jobs : Map<string, number>;
     attributes : Map<string, number>;
     activeJob : JobClass;
 
@@ -26,7 +26,7 @@ export class Character{
     }
 
     public addJob(newJob : JobClass, level : number) : void {
-        this.jobs.set(newJob, level);
+        this.jobs.set(newJob.abbreviation, level);
     }
 
     public addAttribute(newAttr : string, value : number) : void {
@@ -34,7 +34,7 @@ export class Character{
     }
 
     public getLevel(job: JobClass) : number {
-        return this.jobs.get(job);
+        return this.jobs.get(job.abbreviation);
     }
 
     public formatInfos(formatter_name : string) : any {
@@ -56,11 +56,12 @@ export class Character{
         });
         let jobsTab = [];
         char.jobs.forEach((value, key) => {
-            jobsTab.push({job : JobClass.cache(key), level : value});
+            jobsTab.push({job : key, level : value});
         });
         return {
             id : char.id,
             name : char.name,
+            title : char.title,
             portrait : char.portrait.toString(),
             avatar : char.avatar.toString(),
             attributes : attributesTab,
@@ -73,6 +74,7 @@ export class Character{
         let curChar = new Character();
         curChar.id = data.id;
         curChar.name = data.name;
+        curChar.title = data.title;
         curChar.portrait = data.portrait;
         curChar.avatar = data.avatar;
         curChar.activeJob = JobClass.uncache(data.activeJob);
@@ -80,7 +82,7 @@ export class Character{
             curChar.addAttribute(element.attr, element.valeur);
         });
         data.jobs.forEach(element => {
-            curChar.addJob(JobClass.uncache(element.job), element.level);
+            curChar.jobs.set(element.job, element.level);
         });
         return curChar;
     }

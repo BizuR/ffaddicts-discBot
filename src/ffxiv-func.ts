@@ -5,7 +5,7 @@ const props = require(process.cwd() + "/" + process.argv[2]);
 const xivapi_key = props.xivApi.secretKey;
 import { HACache } from './classes/misc/cache';
 import { Character } from './classes/beans/character';
-const cache = new HACache(process.cwd() + "/exec/",'bot-ffdatas.db');
+const cache_player = new HACache(process.cwd() + "/exec/",'bot-ffplayers.db');
 
 export class ffxiv_func {
     static async ffrecipe(msg : Discord.Message) : Promise<void> {
@@ -64,12 +64,12 @@ export class ffxiv_func {
             playerName = cmdargs.join(' ');
         }
         if (playerName === '' || serverName === ''){
-            msg.reply('Utilisation !ffwhois <server> <character>');
+            msg.reply('Utilisation !ffiam <server> <character>');
         } else {
             try{
               let char = await XIVapi.getCharacter(serverName,playerName);
-              cache.put(msg.author.id,Character.cache(char));
-              msg.channel.send(playerName + " on " + serverName + " trouvé(e) et affecté(e) à " + msg.author.toString());
+              cache_player.put(msg.author.tag,Character.cache(char));
+              msg.channel.send(playerName + " on " + serverName + " affecté(e) à " + msg.author.toString());
               msg.channel.send(char.formatInfos("discord"));
             } catch (err) {
                 msg.reply(err);
@@ -79,10 +79,8 @@ export class ffxiv_func {
 
     static async ffwhoami(msg : Discord.Message) : Promise<void> {
         try{
-            console.log(cache.get(msg.author.id));
-            console.log("*********************** uncache à venir ***");
-          let char : Character = Character.uncache(cache.get(msg.author.id));
-          msg.channel.send(msg.author.toString() + " est associé(e) à " + char.name);
+          let char : Character = Character.uncache(cache_player.get(msg.author.tag));
+          msg.channel.send(msg.author.toString() + " associé(e) à " + char.name);
           msg.channel.send(char.formatInfos("discord"));
             } catch (err) {
                 msg.reply(err);
