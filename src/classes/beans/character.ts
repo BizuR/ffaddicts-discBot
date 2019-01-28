@@ -1,7 +1,6 @@
 import {FormatterFactory} from '../formatters/formatterFactory';
 import { Url } from 'url';
 import { JobClass } from './jobClass';
-import { Attachment } from 'discord.js';
 
 export class Character{
 

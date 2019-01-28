@@ -6,8 +6,10 @@ To be able to run this bot, you will need :
 - discord.js module (npm install --save Discord.js)
 - node-fetch module (npm install node-fetch)
 - types for node-fetch (npm install @types/node-fetch)
+- momentJS (npm install moment)
 - lru-cache (npm install lru-cache)
 - types for lru-cache (npm install @types/lru-cache)
+- persistent-cache (npm install persistent-cache)
 
 To run the bot : 
 - build your ts classes with "tsc" command.
@@ -22,7 +24,8 @@ Example of json property file :
     },
     "xivApi": {
         "secretKey": "bar",
-        "baseUrl" : "api_baseurl"
+        "baseUrl" : "https://url",
+        "language" : "fr"
     }
 }
 *******************************************

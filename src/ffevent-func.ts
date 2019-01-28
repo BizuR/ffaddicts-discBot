@@ -1,5 +1,4 @@
 import * as Discord from 'discord.js';
-import * as moment from 'moment';
 import { HACache } from './classes/misc/cache';
 import { Character } from './classes/beans/character';
 import { FFEvent } from './classes/beans/ffevent';
