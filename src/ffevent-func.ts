@@ -22,9 +22,16 @@ export class ffevent_func {
         let duree : number = Number.parseInt(cmdargs[3]);
         let event : FFEvent = new FFEvent(name, date, duree);
         cache_event.put(name, FFEvent.cache(event));
-        msg.channel.send("L'événement " + name + " a été créé par " + msg.author.toString());
+        let msgsent = await msg.channel.send("L'événement " + name + " a été créé par " + msg.author.toString());
+        if (msgsent instanceof Array){
+            let curMsg : Discord.Message = msgsent[0] as Discord.Message;
+            curMsg.pin();
+        } else {
+            let curMsg : Discord.Message = msgsent as Discord.Message;
+            curMsg.pin();
+        }
       }
-   }
+    }
 
    static async suscribe(msg : Discord.Message) : Promise<void> {
         let cmdargs = msg.content.split(" ");

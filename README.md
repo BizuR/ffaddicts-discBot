@@ -3,7 +3,7 @@
 To be able to run this bot, you will need : 
 - nodeJS (6.0.0 or newer)
 - typescript (npm install -g typescript)
-- discord.js module (npm install --save Discord.js)
+- discord.js module (npm install --save discord.js)
 - node-fetch module (npm install node-fetch)
 - types for node-fetch (npm install @types/node-fetch)
 - momentJS (npm install moment)

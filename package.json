@@ -1,0 +1,30 @@
+{
+  "name": "ffaddicts-discBot",
+  "version": "1.0.0",
+  "description": "Discord bot for FF14 to organize events and get some FF14 datas (char, recipe, etc.)",
+  "main": "bot-main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BizuR/ffaddicts-discBot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BizuR/ffaddicts-discBot/issues"
+  },
+  "homepage": "https://github.com/BizuR/ffaddicts-discBot#readme",
+  "dependencies": {
+    "@types/lru-cache": "^4.1.1",
+    "@types/node-fetch": "^2.1.4",
+    "discord.js": "^11.4.2",
+    "lru-cache": "^5.1.1",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.3.0",
+    "persistent-cache": "^1.1.1",
+    "typescript": "^3.2.4"
+  }
+}
